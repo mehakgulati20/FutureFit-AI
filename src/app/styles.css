@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,700&display=swap');
+
+#future-fit-ai{
+    color: #4f737a;
+    font-size: 58px;
+    font-family: 'Cormorant Garamond', serif;
+    z-index: 1;
+}
+.tagline{
+    font-size: 25px;
+    font-style: italic;
+    z-index: 1;
+    padding-bottom: 30px;
+}
+.mytext{
+    color: #76bdcb;
+    z-index: 1;
+}
+.serif-italic {
+    /* font-style: italic; */
+    /* font-weight: bold; */
+    font-size: 25px !important;
+    color: rgb(89, 110, 114);
+    /* padding-top: 28px; */
+}
+[data-testid="stNumberInputStepDown"] {
+    display: none !important;
+}
+[data-testid="stNumberInputStepUp"] {
+    display: none !important;
+}
+.stApp {
+    background-color: white;
+    color: black;
+}
+
+.st-key-basic_info {
+    /* border: 1px solid rgb(185, 199, 211);
+    border-radius: 10px !important; */
+    padding: 20px !important; 
+} 
+
+label[data-testid="stWidgetLabel"] p  {
+    color: rgb(58 60 84);
+    font-size: 18px;
+}
+
+[data-testid="stMarkdownContainer"] h3{
+    color: rgb(58 60 84);
+}
+button[data-testid^="stBaseButton-segmented_control"] p {
+    color: black !important;
+}
+
+div[data-testid="stForm"] {
+    border:none;
+    max-width: 55vw;
+}
+div[data-testid="stMainBlockContainer"]{
+    max-width: 100%;
+    padding-inline: 10rem;
+}
+div[data-testid="stLayoutWrapper"]:has(div[data-testid="stForm"]){
+    border: none;
+}
+div[data-testid="stNumberInputContainer"]{
+    max-width: 150px;  
+    border-radius: 5px;
+    background: rgba(255,255,255,0.75) !important;
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--font-color);
+    outline: none;  
+}
+.st-key-basic_card, .st-key-body_card, .st-key-blood_card,
+.st-key-lifestyle_card, .st-key-bp_card, .st-key-diabetes_card {
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(16px);
+
+    padding: 2rem;
+    border-radius: 28px;
+
+    border: 1px solid rgba(255,255,255,0.35);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.06);
+}
+div[data-testid="stSelectbox"] > div{
+    max-width: 150px;  
+
+    background-color: rgba(255,255,255,0.7) !important;
+    border-radius: 5px;
+
+    backdrop-filter: blur(10px) !important;
+}
+
+div[data-testid="stHorizontalBlock"]{
+    gap: 20px;
+}
+
+.output-container{
+    background: white;
+    padding-block: 2rem;
+    border-radius: 10px;
+    transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    margin-bottom: 30px;
+    margin-top: 30px;
+    
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+                0 0  0 2px rgb(190, 190, 190),
+                    0.3em 0.3em 1em rgba(0,0,0,0.3);
+} 
+
+.h2{
+    color: #fbfeff;
+    padding-left: 40px;
+}
+strong{
+    color: rgb(72, 100, 104);
+}
+.outputs{
+    padding-left: 60px;
+    font-size: 16px;
+}
+.pred{
+    font-weight: bold;
+}
+#add_to_cal{
+    margin-top: 20px;
+    margin-left: 40px;
+    background: rgb(101, 92, 125);
+    color: white;
+    font-style: italic;
+    padding: 20px 60px 20px 20px;
+    font-size: 20px;
+    max-width: fit-content;
+    border-radius: 50px;
+    border: black 2px solid;
+    box-shadow: 4px 4px black !important;
+    position: relative;
+    transition: all 0.3s ease;
+}
+button[kind="secondaryFormSubmit"] {
+    margin-top: 20px;
+    background: rgb(108, 147, 156);
+    color: white;
+    font-style: italic;
+    padding: 20px 60px 20px 20px;
+    font-size: 30px;
+
+    border-radius: 50px;
+
+    box-shadow: 4px 4px var(--main-color) !important;
+
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* arrow */
+button[kind="secondaryFormSubmit"]::after, #add_to_cal::after {
+    content: "→";
+
+    position: absolute;
+    right: 25px;
+    top: 50%;
+
+    transform: translateY(-50%) translateX(-10px);
+
+    opacity: 0;
+
+    transition: all 0.3s ease;
+}
+
+/* hover */
+button[kind="secondaryFormSubmit"]:hover, #add_to_cal:hover {
+    background: rgb(89, 110, 114);
+    color: white;
+
+    padding-right: 80px;
+
+    transform: translateY(-2px);
+}
+
+/* reveal arrow */
+button[kind="secondaryFormSubmit"]:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+[data-testid="stHorizontalBlock"] {
+    gap: 0.25rem !important;
+}
+
+[data-testid="stHorizontalBlock"] > div {
+    width: calc(50% - 0.125rem) !important;
+    flex: 1 1 calc(50% - 0.125rem) !important;
+}
+
+/* Default segmented buttons */
+div[role="radiogroup"] button[kind="segmented_control"] {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid rgba(59, 83, 106, 0.2) !important;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
+
+/* Hover */
+div[role="radiogroup"] button[kind="segmented_control"]:hover {
+    background-color: #cfedfc !important;
+    color: black!important;
+    border: 1px solid rgba(59, 83, 106, 0.2) !important;
+    border: 2px solid black;
+    width: 100px;
+    height: 40px;
+    /* box-shadow: 4px 4px var(--main-color) !important; */
+}
+
+/* Selected */
+div[role="radiogroup"] button[kind="segmented_controlActive"] {
+    background-color: #cfedfc !important;
+    color: black!important;
+    border: 1px solid rgba(59, 83, 106, 0.2) !important;
+    width: 100px;
+    height: 40px;
+    box-shadow: 4px 4px var(--main-color) !important;
+}
+
+/* Keep selected blue on hover */
+div[role="radiogroup"] button[kind="segmented_controlActive"]:hover {
+    background-color: #cfedfc !important;
+    color: black!important;
+    border: 1px solid rgba(59, 83, 106, 0.2) !important;
+    width: 100px;
+    height: 40px;
+    box-shadow: 4px 4px var(--main-color) !important;
+}
+
+div[data-baseweb="base-input"] {
+    background-color: rgba(255,255,255,0.7) !important;
+    border-radius: 5px;
+    border: 1px solid rgb(183, 185, 187) !important;
+
+    backdrop-filter: blur(10px) !important;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.05) !important;
+}
