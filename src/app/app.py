@@ -272,7 +272,6 @@ if submit:
     diabetes_input = set_one_hot_column(diabetes_input, f"smoking_history_{smoking_history}")
 
     diabetes_prediction = diabetes_model.predict(diabetes_input)[0]
-    diabetes_output = "High" if diabetes_prediction == 1 else "Low"
 
     bp_input = pd.DataFrame([{
         "age_years": age,
@@ -307,13 +306,6 @@ if submit:
 
     cholesterol_prediction = cholesterol_model.predict(cholesterol_input)[0]
 
-    if cholesterol_prediction == 1:
-        cholesterol_output = "Normal"
-    elif cholesterol_prediction == 2:
-        cholesterol_output = "Above Normal"
-    else:
-        cholesterol_output = "Well Above Normal"
-
     cardio_input = pd.DataFrame([{
         "age_years": age,
         "BMI": bmi,
@@ -325,6 +317,30 @@ if submit:
 
     cardio_prediction = cardio_model.predict(cardio_input)[0]
     cardio_output = "High" if cardio_prediction == 1 else "Low"
+
+    # Create all recommendation reports first.
+    # The top summary cards now use the same labels as the detailed sections,
+    # so the UI does not show conflicting results.
+    cardio_recs = cardio_recommendation(cardio_prediction)
+    cholesterol_recs = cholesterol_recommendation(cholesterol_prediction)
+    bp_recs = bp_recommendation(bp_prediction - 1)
+
+    diabetes_recs = get_diabetes_report(
+        name="User",
+        glucose=glucose,
+        hba1c=hbA1c,
+        bmi=bmi,
+        age=age,
+        hypertension=(bp_output != "Normal"),
+        smoking=(smoking == "Yes")
+    )
+
+    diabetes_output = diabetes_recs["label"].replace("Diabetes Risk: ", "")
+    cholesterol_output = (
+        cholesterol_recs["risk_level"]
+        .replace("Cholesterol Risk: ", "")
+        .replace("Cholesterol Level: ", "")
+    )
 
     st.markdown("## 📊 Health Report")
 
@@ -359,20 +375,6 @@ if submit:
             f'<div class="metric-box"><h3>BMI</h3><p>{bmi:.1f}</p></div>',
             unsafe_allow_html=True
         )
-
-    cardio_recs = cardio_recommendation(cardio_prediction)
-    cholesterol_recs = cholesterol_recommendation(cholesterol_prediction)
-    bp_recs = bp_recommendation(bp_prediction - 1)
-
-    diabetes_recs = get_diabetes_report(
-        name="User",
-        glucose=glucose,
-        hba1c=hbA1c,
-        bmi=bmi,
-        age=age,
-        hypertension=(bp_output != "Normal"),
-        smoking=(smoking == "Yes")
-    )
 
     reports = [
         ("🩸 Diabetes", diabetes_recs["label"], diabetes_recs["summary"], diabetes_recs["tips"]),
