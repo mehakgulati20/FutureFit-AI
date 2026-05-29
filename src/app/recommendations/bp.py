@@ -1,4 +1,4 @@
-def bp_recommendation(bp_pred):
+def bp_recommendation(bp_level):
 
     reports = {
 
@@ -155,6 +155,6 @@ def bp_recommendation(bp_pred):
         }
     }
 
-    report = reports.get(int(bp_pred))
+    report = reports.get(int(bp_level), reports[0])
 
     return report
