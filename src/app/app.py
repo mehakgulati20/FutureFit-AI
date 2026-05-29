@@ -31,6 +31,30 @@ def load_model(filename):
     return joblib.load(model_path)
 
 
+def get_bp_category_from_numbers(systolic, diastolic):
+    """
+    BP category based on systolic and diastolic values.
+    Returns category_index, category_label.
+
+    0 = Normal
+    1 = Elevated
+    2 = Hypertension Stage 1
+    3 = Hypertension Stage 2
+    """
+
+    if systolic >= 140 or diastolic >= 90:
+        return 3, "Hypertension Stage 2"
+
+    elif systolic >= 130 or diastolic >= 80:
+        return 2, "Hypertension Stage 1"
+
+    elif 120 <= systolic <= 129 and diastolic < 80:
+        return 1, "Elevated"
+
+    else:
+        return 0, "Normal"
+
+
 st.markdown("""
 <style>
 @keyframes fadeInUp {
@@ -284,16 +308,11 @@ if submit:
         "ap_lo": ap_lo
     }])
 
-    bp_prediction = bp_model.predict(bp_input)[0]
+    raw_bp_prediction = int(bp_model.predict(bp_input)[0])
 
-    if bp_prediction == 1:
-        bp_output = "Normal"
-    elif bp_prediction == 2:
-        bp_output = "Elevated"
-    elif bp_prediction == 3:
-        bp_output = "Hypertension Stage 1"
-    else:
-        bp_output = "Hypertension Stage 2"
+    # Use actual BP numbers for the health report category.
+    # This prevents "Unknown" and gives medically correct BP categories.
+    bp_prediction, bp_output = get_bp_category_from_numbers(ap_hi, ap_lo)
 
     cholesterol_input = pd.DataFrame([{
         "age_years": age,
@@ -318,12 +337,10 @@ if submit:
     cardio_prediction = cardio_model.predict(cardio_input)[0]
     cardio_output = "High" if cardio_prediction == 1 else "Low"
 
-    # Create all recommendation reports first.
-    # The top summary cards now use the same labels as the detailed sections,
-    # so the UI does not show conflicting results.
     cardio_recs = cardio_recommendation(cardio_prediction)
     cholesterol_recs = cholesterol_recommendation(cholesterol_prediction)
-    bp_recs = bp_recommendation(bp_prediction - 1)
+
+    bp_recs = bp_recommendation(bp_prediction)
 
     diabetes_recs = get_diabetes_report(
         name="User",
@@ -336,6 +353,7 @@ if submit:
     )
 
     diabetes_output = diabetes_recs["label"].replace("Diabetes Risk: ", "")
+
     cholesterol_output = (
         cholesterol_recs["risk_level"]
         .replace("Cholesterol Risk: ", "")
